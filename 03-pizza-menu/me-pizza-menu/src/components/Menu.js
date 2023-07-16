@@ -6,7 +6,14 @@ const Menu = () => {
     <main className='menu'>
       <h2>Our Menu</h2>
       {pizzaData.map((el, index) => (
-        <Pizza key={index} name={el.name} ingredients={el.ingredients} photoName={el.photoName} price={el.price} />
+        <Pizza
+          key={index}
+          name={el.name}
+          ingredients={el.ingredients}
+          photoName={el.photoName}
+          price={el.price}
+          soldOut={el.soldOut}
+        />
       ))}
     </main>
   );
