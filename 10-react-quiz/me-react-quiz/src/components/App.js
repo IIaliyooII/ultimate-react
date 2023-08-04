@@ -42,6 +42,8 @@ const reducer = (state, action) => {
         status: "finished",
         highscore: state.points > state.highscore ? state.points : state.highscore,
       };
+    case "restart":
+      return { ...initialState, questions: state.questions, status: "ready" };
     default:
       throw new Error("Action Unkonwn");
   }
@@ -77,7 +79,9 @@ function App() {
             <NextButton dispatch={dispatch} answer={answer} index={index} questonLength={questions.length} />
           </>
         )}
-        {status === "finished" && <FinishedScreen points={points} maxPoint={maxPoint} highscore={highscore} />}
+        {status === "finished" && (
+          <FinishedScreen points={points} maxPoint={maxPoint} highscore={highscore} dispatch={dispatch} />
+        )}
       </Main>
     </section>
   );
