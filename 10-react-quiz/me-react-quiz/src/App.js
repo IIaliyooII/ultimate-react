@@ -3,6 +3,8 @@ import Header from "./Header";
 import Main from "./Main";
 import Loader from "./Loader";
 import Error from "./Error";
+import StartScreen from "./StartScreen";
+import Questions from "./Questions";
 
 const initialState = {
   questions: [],
@@ -23,6 +25,11 @@ const reducer = (state, action) => {
         ...state,
         status: "error",
       };
+    case "start":
+      return {
+        ...state,
+        status: "active",
+      };
     default:
       throw new Error("Action Unkonwn");
   }
@@ -30,6 +37,7 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   useEffect(() => {
     fetch("http://localhost:9000/questions")
       .then((res) => res.json())
@@ -42,6 +50,8 @@ function App() {
       <Main>
         {state.status === "loading" && <Loader />}
         {state.status === "error" && <Error />}
+        {state.status === "ready" && <StartScreen questionsLentgh={state.questions.length} dispatch={dispatch} />}
+        {state.status === "active" && <Questions />}
       </Main>
     </section>
   );
