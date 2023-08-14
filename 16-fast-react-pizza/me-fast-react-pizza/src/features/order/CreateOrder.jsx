@@ -1,4 +1,5 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
+import Button from "../../ui/Button";
 
 const fakeCart = [
   {
@@ -33,43 +34,70 @@ function CreateOrder() {
 
   return (
     <div>
-      <h2>Ready to order? Lets go!</h2>
+      <h2 className="mb-8 mt-3 text-xl font-semibold">
+        Ready to order? Lets go!
+      </h2>
 
-      <Form method='POST'>
-        <div>
-          <label>First Name</label>
-          <input type='text' name='customer' required />
-        </div>
-
-        <div>
-          <label>Phone number</label>
-          <div>
-            <input type='tel' name='phone' required />
-          </div>
-          {formErrors?.phone && <p>{formErrors.phone}</p>}
-        </div>
-
-        <div>
-          <label>Address</label>
-          <div>
-            <input type='text' name='address' required />
-          </div>
-        </div>
-
-        <div>
+      <Form method="POST">
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-center">
+          <label className="sm:basis-40">First Name</label>
           <input
-            type='checkbox'
-            name='priority'
-            id='priority'
+            type="text"
+            name="customer"
+            className="input grow"
+            autoComplete="off"
+            required
+          />
+        </div>
+
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="sm:basis-40">Phone number</label>
+          <div className="grow">
+            <input
+              type="tel"
+              name="phone"
+              className="input w-full"
+              autoComplete="off"
+              required
+            />
+            {formErrors?.phone && (
+              <p className="mt-1 text-xs text-red-600">{formErrors.phone}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="sm:basis-40">Address</label>
+          <div className="grow">
+            <input
+              type="text"
+              name="address"
+              className="input w-full"
+              autoComplete="off"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="mb-12 flex items-center gap-3">
+          <input
+            type="checkbox"
+            name="priority"
+            id="priority"
+            className="h-6 w-6 accent-yellow-500"
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor='priority'>Want to yo give your order priority?</label>
+          <label htmlFor="priority" className="font-medium">
+            Want to yo give your order priority?
+          </label>
         </div>
 
         <div>
-          <input type='hidden' name='cart' value={JSON.stringify(cart)} />
-          <button disabled={isSubmitting}>{isSubmitting ? "Placing Order" : "Order Now"}</button>
+          <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+          <Button disabled={isSubmitting}>
+            {isSubmitting ? "Placing Order" : "Order Now"}
+          </Button>
         </div>
       </Form>
     </div>
