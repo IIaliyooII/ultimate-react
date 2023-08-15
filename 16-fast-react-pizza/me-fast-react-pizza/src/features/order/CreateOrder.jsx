@@ -1,5 +1,6 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
 import Button from "../../ui/Button";
+import { useSelector } from "react-redux";
 
 const fakeCart = [
   {
@@ -27,6 +28,7 @@ const fakeCart = [
 
 function CreateOrder() {
   // const [withPriority, setWithPriority] = useState(false);
+  const username = useSelector((state) => state.user.username);
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const formErrors = useActionData();
@@ -44,6 +46,7 @@ function CreateOrder() {
           <input
             type="text"
             name="customer"
+            defaultValue={username}
             className="input grow"
             autoComplete="off"
             required
