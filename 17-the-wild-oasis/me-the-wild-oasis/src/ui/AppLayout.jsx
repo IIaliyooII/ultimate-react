@@ -10,8 +10,16 @@ const SAppLayout = styled.div`
   height: 100dvh;
 `;
 const Main = styled.main`
+  overflow: scroll;
   background-color: var(--color-grey-0);
   padding: 5rem;
+`;
+const Container = styled.div`
+  max-width: 120rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
 `;
 
 const AppLayout = () => {
@@ -20,7 +28,9 @@ const AppLayout = () => {
       <Header />
       <Sidebar />
       <Main>
-        <Outlet />
+        <Container>
+          <Outlet />
+        </Container>
       </Main>
     </SAppLayout>
   );
