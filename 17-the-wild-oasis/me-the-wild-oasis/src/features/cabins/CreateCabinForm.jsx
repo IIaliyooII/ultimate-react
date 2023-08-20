@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
-import useCreateCabin from "./useCreateCabin";
-import useEditCabin from "./useEditCabin";
+import { useCreateCabin } from "./useCreateCabin";
+import { useEditCabin } from "./useEditCabin";
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
