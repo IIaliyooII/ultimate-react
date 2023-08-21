@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
+import { createContext, useContext } from "react";
 import styled from "styled-components";
 
-const StyledTable = styled.div`
+const STable = styled.div`
   border: 1px solid var(--color-grey-200);
 
   font-size: 1.4rem;
@@ -17,7 +19,7 @@ const CommonRow = styled.header`
   transition: none;
 `;
 
-const StyledHeader = styled(CommonRow)`
+const SHeader = styled(CommonRow)`
   padding: 1.6rem 2.4rem;
 
   background-color: var(--color-grey-50);
@@ -28,11 +30,11 @@ const StyledHeader = styled(CommonRow)`
   color: var(--color-grey-600);
 `;
 
-const StyledBody = styled.section`
+const SBody = styled.section`
   margin: 0.4rem 0;
 `;
 
-const StyledRow = styled(CommonRow)`
+const SRow = styled(CommonRow)`
   padding: 1.2rem 2.4rem;
 
   &:not(:last-child) {
@@ -57,3 +59,42 @@ const Empty = styled.p`
   text-align: center;
   margin: 2.4rem;
 `;
+
+const TableContext = createContext();
+
+const Table = ({ columns, children }) => {
+  return (
+    <TableContext.Provider value={{ columns }}>
+      <STable role='table'>{children}</STable>
+    </TableContext.Provider>
+  );
+};
+
+const Header = ({ children }) => {
+  const { columns } = useContext(TableContext);
+  return (
+    <SHeader role='row' columns={columns} as='header'>
+      {children}
+    </SHeader>
+  );
+};
+const Row = ({ children }) => {
+  const { columns } = useContext(TableContext);
+  return (
+    <SRow role='row' columns={columns}>
+      {children}
+    </SRow>
+  );
+};
+const Body = ({ data, render }) => {
+  if (!data.length) return <Empty>No data to show at the moment</Empty>;
+
+  return <SBody>{data.map(render)}</SBody>;
+};
+
+Table.Header = Header;
+Table.Body = Body;
+Table.Row = Row;
+Table.Footer = Footer;
+
+export default Table;
